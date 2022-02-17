@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	detect_nl(char *str)
 {
@@ -45,6 +46,7 @@ char	*read_file(int fd, char *str)
 			return (NULL);
 		}
 		ft_strlcpy(s2, buffer, byte_read + 1);
+		free(s2);
 		str = ft_strjoin(str, s2);
 		if (detect_nl(str) >= 0)
 			break ;
@@ -69,6 +71,7 @@ char	*create_line(char *str)
 			return (NULL);
 		}
 		ft_strlcpy(line, str, s_len + 1);
+		return (line);
 	}
 	line = (char *)malloc(sizeof(char) * (nl_index + 2));
 	if (!line)
@@ -128,7 +131,5 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	str = cut_line(str);
-	if (!str)
-		return (NULL);
 	return (line);
 }

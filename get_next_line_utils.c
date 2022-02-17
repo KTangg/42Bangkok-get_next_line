@@ -34,7 +34,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	}
 	if (dstsize > 0)
 		dst[i] = '\0';
-	return (ft_strlen(src));
+	return (dstsize);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
