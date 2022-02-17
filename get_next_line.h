@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+char	*str_realloc(char *s1, char *s2);
 char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
 
-#ifndef
+#endif
