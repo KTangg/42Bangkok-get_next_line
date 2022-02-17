@@ -46,8 +46,8 @@ char	*read_file(int fd, char *str)
 			return (NULL);
 		}
 		ft_strlcpy(s2, buffer, byte_read + 1);
-		free(s2);
 		str = ft_strjoin(str, s2);
+		free(s2);
 		if (detect_nl(str) >= 0)
 			break ;
 	}
