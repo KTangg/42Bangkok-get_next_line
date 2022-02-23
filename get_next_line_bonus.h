@@ -19,9 +19,9 @@
 
 typedef struct s_info
 {
-	int		fd;
-	char	*line;
-	t_info	*next;
+	int				fd;
+	char			*line;
+	struct s_info	*next;
 }	t_info;
 
 char	*get_next_line(int fd);
@@ -29,5 +29,6 @@ char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 t_info	*create_info(int fd);
+t_info	*get_info(int fd, t_info **info);
 
 #endif

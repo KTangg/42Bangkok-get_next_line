@@ -109,7 +109,6 @@ char	*cut_line(char *str)
 char	*get_next_line(int fd)
 {
 	char			*line;
-	t_info			*cursor;
 	t_info			*fd_info;
 	static t_info	**info = NULL;
 
