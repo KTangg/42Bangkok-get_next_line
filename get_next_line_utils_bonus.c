@@ -73,4 +73,29 @@ t_info	*create_info(int fd)
 	info->line = (char *)malloc(sizeof(char) * 1);
 	info->line[0] = '\0';
 	info->next = NULL;
+	return (fd);
+}
+
+t_info	*get_info(int fd, t_info **info)
+{
+	t_info	*tmp;
+	t_info	*cursor;
+
+	if (!info)
+	{
+		*info = create_info(fd);
+		return (*info);
+	}
+	cursor = *info;
+	while (*info != NULL)
+	{
+		if (cursor->fd == fd)
+			return (cursor);
+		if (cursor->next == NULL)
+			break ;
+		cursor = cursor->next;
+	}
+	tmp = create_info(fd);
+	cursor->next = tmp;
+	return (tmp);
 }
