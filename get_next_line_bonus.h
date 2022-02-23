@@ -17,14 +17,16 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-struct s_line
+typedef struct s_info
 {
-	int	fd;
+	int		fd;
 	char	*line;
-}	t_line;
+	t_info	*next;
+}	t_info;
 
-char	*str_realloc(char *s1, char *s2);
 char	*get_next_line(int fd);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 
 #endif

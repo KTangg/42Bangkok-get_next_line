@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 
@@ -34,54 +34,49 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	if (dstsize > 0)
 		dst[i] = '\0';
-	return (ft_strlen(src));
+	return (dstsize);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
+	char	*str_joined;
 	size_t	i;
 	size_t	len;
 	size_t	s1_len;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
+	str_joined = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str_joined)
 	{
 		free(s1);
-		free(s2);
 		return (NULL);
 	}
-	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
+	ft_strlcpy(str_joined, s1, ft_strlen(s1) + 1);
 	s1_len = ft_strlen(s1);
 	i = 0;
-	while ((s1_len + i + 1) < len && s2[i] != '\0')
+	while ((s1_len + i + 1) < (len + 1) && s2[i] != '\0')
 	{
-		str[i + s1_len] = s2[i];
+		str_joined[i + s1_len] = s2[i];
 		i++;
 	}
-	str[i + s1_len] = '\0';
+	str_joined[i + s1_len] = '\0';
 	free(s1);
-	free(s2);
-	return (str);
+	return (str_joined);
 }
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+t_info	*check_fd(int fd, t_info *info)
 {
-	char	*str;
-	size_t	s_len;
+	int		i;
+	t_info	*info_fd;
 
-	s_len = ft_strlen(s);
-	if ((start + len) > s_len && (start + 1) <= s_len)
-		len = s_len - start;
-	else if ((start + 1) > s_len)
-		len = 0;
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	if (len != 0)
-		len = ft_strlcpy(str, &s[start], (len + 1));
-	else
-		str[0] = '\0';
-	return (str);
+	i = 0;
+	if (!info)
+	{
+		info_fd = (t_info *)malloc(sizeof(t_info) * 2);
+		info_fd->fd = fd;
+		info_fd->line = (char *)malloc(sizeof(char) * 1);
+		info_fd->line[0] = '\0';
+		info_fd[1].fd = NULL;
+	}
+	while (info->)
 }
