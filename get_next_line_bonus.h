@@ -28,5 +28,6 @@ char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+t_info	*create_info(int fd);
 
 #endif

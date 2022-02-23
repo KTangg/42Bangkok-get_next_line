@@ -64,19 +64,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str_joined);
 }
 
-t_info	*check_fd(int fd, t_info *info)
+t_info	*create_info(int fd)
 {
-	int		i;
-	t_info	*info_fd;
+	t_info	*info;
 
-	i = 0;
-	if (!info)
-	{
-		info_fd = (t_info *)malloc(sizeof(t_info) * 2);
-		info_fd->fd = fd;
-		info_fd->line = (char *)malloc(sizeof(char) * 1);
-		info_fd->line[0] = '\0';
-		info_fd[1].fd = NULL;
-	}
-	while (info->)
+	info = (t_info *)malloc(sizeof(t_info) * 1);
+	info->fd = fd;
+	info->line = (char *)malloc(sizeof(char) * 1);
+	info->line[0] = '\0';
+	info->next = NULL;
 }

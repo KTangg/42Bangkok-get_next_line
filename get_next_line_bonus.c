@@ -12,38 +12,116 @@
 
 #include "get_next_line_bonus.h"
 
-t_info	*get_info(int fd, t_info *info)
+int	detect_nl(char *str)
 {
-	t_info	*tmp;
+	int	i;
 
-	if (!info)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		info = (t_info *)malloc(sizeof(t_info) * 1);
-		info->fd = fd;
-		info->line = NULL;
-		info->next = NULL;
-		return (info);
+		if (str[i] == '\n')
+			return (i);
+		i++;
 	}
-	while (info != NULL)
+	return (-1);
+}
+
+char	*read_file(int fd, char *str)
+{
+	int		byte_read;
+	char	*s2;
+	char	buffer[BUFFER_SIZE];
+
+	byte_read = 1;
+	while (byte_read > 0)
 	{
-		if (info->fd == fd)
-			return (info);
-		if (info->next == NULL)
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read <= 0)
 			break ;
-		info = info->next;
+		s2 = (char *)malloc(sizeof(char) * (byte_read + 1));
+		if (!s2)
+		{
+			free(str);
+			return (NULL);
+		}
+		ft_strlcpy(s2, buffer, byte_read + 1);
+		str = ft_strjoin(str, s2);
+		free(s2);
+		if (detect_nl(str) >= 0)
+			break ;
 	}
-	tmp = (t_info *)malloc(sizeof(t_info) * 1);
-	tmp->fd = fd;
-	tmp->line = NULL;
-	tmp->next = NULL;
-	info->next = tmp;
-	return (tmp);
+	return (str);
+}
+
+char	*create_line(char *str)
+{
+	int		nl_index;
+	char	*line;
+	size_t	s_len;
+
+	nl_index = detect_nl(str);
+	s_len = ft_strlen(str);
+	if (nl_index < 0)
+	{
+		line = (char *)malloc(sizeof(char) * (s_len + 1));
+		if (!line)
+		{
+			free(str);
+			return (NULL);
+		}
+		ft_strlcpy(line, str, s_len + 1);
+		return (line);
+	}
+	line = (char *)malloc(sizeof(char) * (nl_index + 2));
+	if (!line)
+	{
+		free(str);
+		return (NULL);
+	}
+	ft_strlcpy(line, str, nl_index + 2);
+	return (line);
+}
+
+char	*cut_line(char *str)
+{
+	int		nl_index;
+	char	*cut_str;
+	size_t	len;
+
+	nl_index = detect_nl(str);
+	if (nl_index < 0)
+	{
+		free(str);
+		return (NULL);
+	}
+	len = ft_strlen(str);
+	cut_str = (char *)malloc(sizeof(char) * (len - nl_index));
+	if (!cut_str)
+	{
+		free(str);
+		return (NULL);
+	}
+	ft_strlcpy(cut_str, &str[nl_index + 1], len - nl_index);
+	free(str);
+	return (cut_str);
 }
 
 char	*get_next_line(int fd)
 {
+	char			*line;
+	t_info			*cursor;
 	t_info			*fd_info;
-	static t_info	*info = NULL;
+	static t_info	**info = NULL;
 
 	fd_info = get_info(fd, info);
+	fd_info->line = read_file(fd, fd_info->line);
+	if (fd_info->line[0] == '\0')
+	{
+		return (NULL);
+	}
+	line = create_line(fd_info->line);
+	if (!line)
+		return (NULL);
+	fd_info->line = cut_line(fd_info->line);
+	return (line);
 }
