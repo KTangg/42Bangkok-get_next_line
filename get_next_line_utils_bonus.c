@@ -73,7 +73,7 @@ t_info	*create_info(int fd)
 	info->line = (char *)malloc(sizeof(char) * 1);
 	info->line[0] = '\0';
 	info->next = NULL;
-	return (fd);
+	return (info);
 }
 
 t_info	*get_info(int fd, t_info **info)
