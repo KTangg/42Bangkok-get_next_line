@@ -67,3 +67,28 @@ t_info	*get_info(int fd, t_info *info)
 	cursor->next = tmp;
 	return (tmp);
 }
+
+t_info	*free_fd(t_info *start, int fd)
+{
+	t_info	*cursor;
+	t_info	*prev;
+
+	prev = start;
+	cursor = start;
+	while (cursor != NULL)
+	{
+		if (cursor->fd == fd)
+		{
+			if (cursor->line != NULL)
+				free(cursor->line);
+			if (cursor == start)
+				start = start->next;
+			else
+				prev->next = cursor->next;
+			free(cursor);
+		}
+		prev = cursor;
+		cursor = cursor->next;
+	}
+	return (start);
+}
