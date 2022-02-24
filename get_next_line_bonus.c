@@ -30,6 +30,7 @@ char	*read_file(int fd, char *str)
 {
 	int		byte_read;
 	char	*s2;
+	char	*new;
 	char	buffer[BUFFER_SIZE];
 
 	byte_read = 1;
@@ -39,14 +40,13 @@ char	*read_file(int fd, char *str)
 		if (byte_read <= 0)
 			break ;
 		s2 = (char *)malloc(sizeof(char) * (byte_read + 1));
-		if (!s2)
-		{
-			free(str);
-			return (NULL);
-		}
 		ft_strlcpy(s2, buffer, byte_read + 1);
-		str = ft_strjoin(str, s2);
+		new = (char *)malloc((ft_strlen(str) + ft_strlen(s2) + 1));
+		ft_strlcpy(new, str, ft_strlen(str) + 1);
+		ft_strlcpy(&new[ft_strlen(str)], s2, ft_strlen(s2) + 1);
+		free(str);
 		free(s2);
+		str = new;
 		if (detect_nl(str) >= 0)
 			break ;
 	}
