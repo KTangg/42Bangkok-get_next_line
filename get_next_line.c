@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	detect_nl(char *str)
 {
@@ -124,6 +125,7 @@ char	*get_next_line(int fd)
 	if (str[0] == '\0')
 	{
 		free(str);
+		str = NULL;
 		return (NULL);
 	}
 	line = create_line(str);
