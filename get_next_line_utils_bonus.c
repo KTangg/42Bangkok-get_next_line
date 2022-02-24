@@ -87,7 +87,7 @@ t_info	*get_info(int fd, t_info **info)
 		return (*info);
 	}
 	cursor = *info;
-	while (*info != NULL)
+	while (cursor != NULL)
 	{
 		if (cursor->fd == fd)
 			return (cursor);
