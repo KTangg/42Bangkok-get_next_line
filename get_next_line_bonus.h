@@ -29,6 +29,6 @@ char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 t_info	*create_info(int fd);
-t_info	*get_info(int fd, t_info **info);
+t_info	*get_info(int fd, t_info *info);
 
 #endif

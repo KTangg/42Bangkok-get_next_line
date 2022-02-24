@@ -76,17 +76,12 @@ t_info	*create_info(int fd)
 	return (info);
 }
 
-t_info	*get_info(int fd, t_info **info)
+t_info	*get_info(int fd, t_info *info)
 {
 	t_info	*tmp;
 	t_info	*cursor;
 
-	if (!info)
-	{
-		*info = create_info(fd);
-		return (*info);
-	}
-	cursor = *info;
+	cursor = info;
 	while (cursor != NULL)
 	{
 		if (cursor->fd == fd)

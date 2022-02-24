@@ -110,8 +110,10 @@ char	*get_next_line(int fd)
 {
 	char			*line;
 	t_info			*fd_info;
-	static t_info	**info = NULL;
+	static t_info	*info = NULL;
 
+	if (!info)
+		info = create_info(fd);
 	fd_info = get_info(fd, info);
 	fd_info->line = read_file(fd, fd_info->line);
 	if (fd_info->line[0] == '\0')
