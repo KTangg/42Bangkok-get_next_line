@@ -86,6 +86,7 @@ t_info	*free_fd(t_info *start, int fd)
 			else
 				prev->next = cursor->next;
 			free(cursor);
+			break ;
 		}
 		prev = cursor;
 		cursor = cursor->next;
