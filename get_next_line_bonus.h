@@ -30,5 +30,6 @@ size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 t_info	*create_info(int fd);
 t_info	*get_info(int fd, t_info *info);
+t_info	*free_fd(t_info *start, int fd);
 
 #endif
