@@ -6,12 +6,11 @@
 /*   By: spoolpra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 22:44:44 by spoolpra          #+#    #+#             */
-/*   Updated: 2022/02/16 22:44:44 by spoolpra         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:05:10 by spoolpra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 int	detect_nl(char *str)
 {
@@ -120,10 +119,11 @@ char	*get_next_line(int fd)
 	if (fd_info->line == NULL)
 		return (NULL);
 	if (fd_info->line[0] == '\0')
+	{
+		free(fd_info->line);
 		return (NULL);
+	}
 	line = create_line(fd_info->line);
-	if (!line)
-		return (NULL);
 	fd_info->line = cut_line(fd_info->line);
 	return (line);
 }
