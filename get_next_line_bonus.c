@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <stdio.h>
 
 int	detect_nl(char *str)
 {
@@ -116,10 +117,10 @@ char	*get_next_line(int fd)
 		info = create_info(fd);
 	fd_info = get_info(fd, info);
 	fd_info->line = read_file(fd, fd_info->line);
-	if (fd_info->line[0] == '\0')
-	{
+	if (fd_info->line == NULL)
 		return (NULL);
-	}
+	if (fd_info->line[0] == '\0')
+		return (NULL);
 	line = create_line(fd_info->line);
 	if (!line)
 		return (NULL);
